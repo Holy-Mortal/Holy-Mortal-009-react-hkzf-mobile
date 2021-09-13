@@ -8,4 +8,11 @@ body {
 
 * {
   box-sizing: border-box;
+  /* 去掉 轮播图 Chrome 浏览器的错误警示 */
+  touch-action: pan-y;
+}
+
+h2,
+p {
+  margin: 0;
 }

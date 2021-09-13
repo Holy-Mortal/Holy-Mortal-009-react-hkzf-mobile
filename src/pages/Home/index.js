@@ -9,13 +9,13 @@ import Profile from '../Profile' // 导入 Profile 组件
 // 导入 TabBar
 import { TabBar } from 'antd-mobile'
 // 导入 组件自身的 样式文件
-import './index.css'
+import './index.scss'
 
 const tabItems = [
   {
     title: '首页',
     icon: 'icon-ind',
-    path: '/home/index'
+    path: '/home'
   }, {
     title: '找房',
     icon: 'icon-findHouse',
@@ -34,7 +34,19 @@ const tabItems = [
 export default class Home extends React.Component {
   state = {
     // 默认选中的 TabBar 菜单栏
-    selectedTab: this.props.location.pathname,
+    selectedTab: this.props.location.pathname
+  }
+  
+  // 生命周期钩子函数监听 路由切换 prevProps：上一次路由信息 this.props：最新信息
+  componentDidUpdate(prevProps) {
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      // 路由发生切换
+      this.setState(() => {
+        return {
+          selectedTab: this.props.location.pathname
+        }
+      })
+    }
   }
 
   // 渲染 TabBar.Item
@@ -61,7 +73,7 @@ export default class Home extends React.Component {
     return (
       <div className="home">
         {/* 渲染子路由 */}
-        <Route path="/home/index" component={Index} />
+        <Route exact path="/home" component={Index} />
         <Route path="/home/list" component={HouseList} />
         <Route path="/home/news" component={News} />
         <Route path="/home/profile" component={Profile} />
