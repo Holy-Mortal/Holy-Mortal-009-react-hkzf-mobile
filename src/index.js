@@ -1,17 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import App from './App'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// 导入 antd-mobile 的样式
+import 'antd-mobile/dist/antd-mobile.css'
+
+// 导入 字体图标库 的样式文件
+import './assets/fonts/iconfont.css'
+
+// 导入 自身的 全局样式（放在组件库样式后）
+import './index.css'
+
+ReactDOM.render(<App />, document.getElementById('root'))
