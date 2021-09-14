@@ -41,16 +41,17 @@ const navs = [
 // 获取地理位置信息
 // position对象表示当前位置信息  latitude: 维度  longitude: 经度  altitude: 海拔高度
 // accuracy: 经纬度的精度  altitudeAccuracy: 海拔高度的精度  heading: 设备行进方向  speed: 速度
-navigator.geolocation.getCurrentPosition(position => {
-  console.log('当前地理位置：', position)
-})
+// navigator.geolocation.getCurrentPosition(position => {
+//   console.log('当前地理位置：', position)
+// })
 
 export default class Index extends React.Component {
   state = {
     swipers: [], // 轮播图状态数据
     isSwiperLoaded: false, // 表示轮播图数据加载是否完成
     groups: [], // 租房小组数据
-    news: [] // 最新资讯
+    news: [], // 最新资讯
+    curCityName: '上海' // 当前城市名称
   }
 
   // 获取轮播图数据的方法
@@ -98,6 +99,19 @@ export default class Index extends React.Component {
     this.getSwipers()
     this.getGroups()
     this.getNews()
+
+    // 通过 IP 定位获取当前城市名称
+    const curCity = new window.BMapGL.LocalCity()
+    curCity.get(async res => {
+      // console.log('当前城市：', res.name)
+      const result = await axios.get(`http://localhost:8080/area/info?name=${res.name}`)
+      // console.log(result)
+      this.setState(() => {
+        return {
+          curCityName: result.data.body.label
+        }
+      })
+    })
   }
 
   // 渲染轮播图结构
@@ -187,7 +201,7 @@ export default class Index extends React.Component {
                   this.props.history.push('/citylist')
                 )}
               >
-                <span className="name">上海</span>
+                <span className="name">{this.state.curCityName}</span>
                 <i className="iconfont icon-arrow" />
               </div>
               {/* 搜索表单 */}
