@@ -6,6 +6,9 @@ import App from './App'
 // 导入 antd-mobile 的样式
 import 'antd-mobile/dist/antd-mobile.css'
 
+// 导入 react-virtualized 组件的样式文件
+import 'react-virtualized/styles.css'
+
 // 导入 字体图标库 的样式文件
 import './assets/fonts/iconfont.css'
 
