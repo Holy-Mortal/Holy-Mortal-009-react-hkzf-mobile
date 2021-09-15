@@ -4,6 +4,7 @@ import React from 'react'
 import { Carousel, Flex, Grid, WingBlank } from 'antd-mobile'
 // 导入 axios
 import axios from 'axios'
+import { BASE_URL } from '../../utils/url'
 // 导入导航菜单图片
 import Nav1 from '../../assets/images/nav-1.png'
 import Nav2 from '../../assets/images/nav-2.png'
@@ -137,7 +138,7 @@ export default class Index extends React.Component {
         }}
       >
         <img
-          src={`http://localhost:8080${item.imgSrc}`}
+          src={BASE_URL + item.imgSrc}
           alt=""
           style={{ width: '100%', verticalAlign: 'top' }}
         />
