@@ -15,6 +15,8 @@ import { Toast } from 'antd-mobile'
 
 // 导入 封装完成的 NavHeader 组件
 import NavHeader from '../../components/NavHeader'
+// 导入 封装完成的 NavHeader 组件
+import HouseItem from '../../components/HouseItem'
 
 // 导入 组件自身的 样式文件 // import './index.scss'
 import styles from './index.module.css'
@@ -268,38 +270,14 @@ export default class Map extends React.Component {
   // 封装渲染房屋列表的方向
   renderHousesList() {
     return this.state.housesList.map(item => (
-      <div className={styles.house} key={item.houseCode}>
-        <div className={styles.imgWrap}>
-          <img
-            className={styles.img}
-            src={BASE_URL + item.houseImg}
-            alt=""
-          />
-        </div>
-        <div className={styles.content}>
-          <h3 className={styles.title}>
-            {item.title}
-          </h3>
-          <div className={styles.desc}>
-            {item.desc}
-          </div>
-          <div>
-            {
-              item.tags.map((tag, index) => {
-                const tagClass = 'tag' + (index + 1)
-                return (
-                  <span className={[styles.tag, styles[tagClass]].join(' ')} key={tag}>
-                    {tag}
-                  </span>
-                )
-              })
-            }
-          </div>
-          <div className={styles.price}>
-            <span className={styles.priceNum}>{item.price}</span> 元/月
-          </div>
-        </div>
-      </div>
+      <HouseItem
+        key={item.houseCode}
+        src={BASE_URL + item.houseImg}
+        title={item.title}
+        desc={item.desc}
+        tags={item.tags}
+        price={item.price}
+      />
     ))
   }
 

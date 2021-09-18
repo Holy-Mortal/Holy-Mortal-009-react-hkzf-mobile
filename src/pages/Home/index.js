@@ -1,15 +1,15 @@
 import React from 'react'
 import { Route } from 'react-router-dom' // 导入路由
 
-import Index from '../Index' // 导入 Index 组件
-import HouseList from '../HouseList' // 导入 HouseList 组件
-import News from '../News' // 导入 News 组件
-import Profile from '../Profile' // 导入 Profile 组件
-
 // 导入 TabBar
 import { TabBar } from 'antd-mobile'
 // 导入 组件自身的 样式文件
 import './index.scss'
+
+import Index from '../Index' // 导入 Index 组件
+import HouseList from '../HouseList' // 导入 HouseList 组件
+import News from '../News' // 导入 News 组件
+import Profile from '../Profile' // 导入 Profile 组件
 
 const tabItems = [
   {
