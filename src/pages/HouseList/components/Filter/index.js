@@ -310,16 +310,17 @@ export default class Filter extends Component {
   // 渲染遮罩层
   renderMask() {
     const { openType } = this.state
-    const isHide = openType === 'more' || openType === ''
+    // const isHide = openType === 'more' || openType === ''
 
-    // if(openType === 'more' || openType === '') {
-    //   return null
-    // }
+    if(openType === 'more' || openType === '') {
+      return null
+    }
 
     return (
       <Spring
         from={{ opacity: 0 }}
-        to={{ opacity: isHide ? 0 : 1 }}
+        to={{ opacity: 1 }}
+        // to={{ opacity: isHide ? 0 : 1 }}
       >
         {props => {
           // 说明遮罩层已经完成动画效果

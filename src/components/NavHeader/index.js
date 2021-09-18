@@ -13,16 +13,24 @@ import PropTypes from 'prop-types'
 // import './index.scss'
 import styles from './index.module.css'
 
-function NavHeader({ children, history, onLeftClick }) {
+// 添加 className 和 rightContent (导航栏右侧内容) 属性
+function NavHeader({
+  children,
+  history,
+  onLeftClick,
+  className,
+  rightContent
+}) {
   // 默认点击行为
   const defaultHandler = () => history.go(-1)
   return (
     // 顶部导航栏
     <NavBar
-      className={styles.navBar}
+      className={[styles.navBar, className || ''].join(' ')}
       mode="light"
       icon={<i className="iconfont icon-back" />}
       onLeftClick={onLeftClick || defaultHandler}
+      rightContent={rightContent}
     >
       {children}
     </NavBar>
@@ -32,7 +40,9 @@ function NavHeader({ children, history, onLeftClick }) {
 // 添加 props 校验
 NavHeader.propTypes = {
   children: PropTypes.string.isRequired,
-  onLeftClick: PropTypes.func
+  onLeftClick: PropTypes.func,
+  className: PropTypes.string,
+  rightContent: PropTypes.array
 }
 
 // withRouter(NavHeader) 函数的返回值是一个数组
