@@ -118,7 +118,6 @@ export default class HouseDetail extends Component {
     })
 
     const res = await API.get(`/houses/${id}`)
-    console.log(res)
 
     this.setState(() => {
       return {
@@ -140,7 +139,7 @@ export default class HouseDetail extends Component {
 
     return houseImg.map(item => (
       <a
-        key={item.id}
+        key={item}
         href="http://itcast.cn"
         style={{
           display: 'inline-block',
