@@ -12,6 +12,8 @@ import { API } from '../../../../utils/api'
 
 import styles from './index.module.css'
 
+// 标题高亮状态
+// true 表示高亮； false 表示不高亮
 const titleSelectedStatus = {
   area: false,
   mode: false,
@@ -19,6 +21,7 @@ const titleSelectedStatus = {
   more: false
 }
 
+// FilterPicker 和 FilterMore 组件的选中值
 const selectedValues = {
   area: ['area', 'null'],
   mode: ['null'],
@@ -32,7 +35,18 @@ export default class Filter extends Component {
     // 控制 FilterPicker 或 FilterMore 组件的展示或隐藏
     openType: '',
     // 所有筛选条件数据
-    filtersData: {},
+    filtersData: {
+      // FilterMore
+      roomType: [],
+      oriented: [],
+      floor: [],
+      characteristic: [],
+      // FilterPicker
+      area: {},
+      subway: {},
+      rentType: [],
+      price: []
+    },
     // 筛选条件的选中值
     selectedValues
   }
@@ -103,7 +117,6 @@ export default class Filter extends Component {
         titleSelectedStatus: newTitleSelectedStatus
       }
     })
-
     // this.setState(prevState => {
     //   return {
     //     titleSelectedStatus: {
@@ -181,6 +194,23 @@ export default class Filter extends Component {
     } else {
       newTitleSelectedStatus[type] = false
     }
+
+     /* 
+      组装筛选条件：
+
+      1 在 Filter 组件的 onSave 方法中，根据最新 selectedValues 组装筛选条件数据 filters。
+      2 获取区域数据的参数名：area 或 subway（选中值数组的第一个元素）。
+      3 获取区域数据的值（以最后一个 value 为准）。
+      4 获取方式和租金的值（选中值的第一个元素）。
+      5 获取筛选（more）的值（将选中值数组转化为以逗号分隔的字符串）。
+
+      {
+        area: 'AREA|67fad918-f2f8-59df', // 或 subway: '...'
+        mode: 'true', // 或 'null'
+        price: 'PRICE|2000',
+        more: 'ORIEN|80795f1a-e32f-feb9,ROOM|d4a692e4-a177-37fd'
+      }
+    */
 
     const newSelectedValues = {
       ...this.state.selectedValues,
@@ -271,6 +301,7 @@ export default class Filter extends Component {
     )
   }
 
+
   renderFilterMore() {
     const {
       openType,
@@ -310,6 +341,7 @@ export default class Filter extends Component {
   // 渲染遮罩层
   renderMask() {
     const { openType } = this.state
+    // 遮罩层是否隐藏
     // const isHide = openType === 'more' || openType === ''
 
     if(openType === 'more' || openType === '') {

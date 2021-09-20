@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Spring } from 'react-spring'
+
 import FilterFooter from '../../../../components/FilterFooter'
 
 import styles from './index.module.css'
@@ -9,6 +11,7 @@ export default class FilterMore extends Component {
     selectedValues: this.props.defaultValue
   }
 
+  // 标签点击事件
   onTagClick(value) {
     const { selectedValues } = this.state
     // 创建新数组
@@ -78,35 +81,69 @@ export default class FilterMore extends Component {
       type
     } = this.props
 
+    // 该组件是否展示
+    const isOpen = type === 'more'
+
     return (
       <div className={styles.root}>
         {/* 遮罩层 */}
-        <div className={styles.mask} onClick={() => onCancel(type)} />
+        <Spring to={{ opacity: isOpen ? 1 : 0}}>
+          {props => {
+            if(props.opacity === 0) {
+              return null
+            }
+            return (
+              <div
+                style={props}
+                className={styles.mask}
+                onClick={() => onCancel(type)}
+              />
+            )
+          }}
+        </Spring>
 
-        {/* 条件内容 */}
-        <div className={styles.tags}>
-          <dl className={styles.dl}>
-            <dt className={styles.dt}>户型</dt>
-            <dd className={styles.dd}>{this.renderFilters(roomType)}</dd>
+        <Spring
+          to={{ transform: `translate(${isOpen ? '0px' : '100px'}, 0px)` }}
+        >
+          {props => {
+            return (
+              <>
+                {/* 条件内容 */}
+                <div style={props} className={styles.tags}>
+                  <dl className={styles.dl}>
+                    <dt className={styles.dt}>户型</dt>
+                    <dd className={styles.dd}>
+                      {this.renderFilters(roomType)}
+                    </dd>
 
-            <dt className={styles.dt}>朝向</dt>
-            <dd className={styles.dd}>{this.renderFilters(oriented)}</dd>
+                    <dt className={styles.dt}>朝向</dt>
+                    <dd className={styles.dd}>
+                      {this.renderFilters(oriented)}
+                    </dd>
 
-            <dt className={styles.dt}>楼层</dt>
-            <dd className={styles.dd}>{this.renderFilters(floor)}</dd>
+                    <dt className={styles.dt}>楼层</dt>
+                    <dd className={styles.dd}>
+                      {this.renderFilters(floor)}
+                    </dd>
 
-            <dt className={styles.dt}>房屋亮点</dt>
-            <dd className={styles.dd}>{this.renderFilters(characteristic)}</dd>
-          </dl>
-        </div>
+                    <dt className={styles.dt}>房屋亮点</dt>
+                    <dd className={styles.dd}>
+                      {this.renderFilters(characteristic)}
+                    </dd>
+                  </dl>
+                </div>
 
-        {/* 底部按钮 */}
-        <FilterFooter
-          className={styles.footer}
-          cancelText="清除"
-          onCancel={this.onCancel}
-          onOk={this.onOk}
-        />
+                {/* 底部按钮 */}
+                <FilterFooter
+                  className={styles.footer}
+                  cancelText="清除"
+                  onCancel={this.onCancel}
+                  onOk={this.onOk}
+                />
+              </>
+            )
+          }}
+        </Spring>
       </div>
     )
   }

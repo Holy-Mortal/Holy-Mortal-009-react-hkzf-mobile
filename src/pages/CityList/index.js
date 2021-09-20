@@ -17,6 +17,7 @@ import NavHeader from '../../components/NavHeader'
 
 // 导入 组件自身的 样式文件
 import './index.scss'
+// import styles from './index.module.css'
 
 // 数据格式化的方法 list: [{}, {}]
 const formatCityData = (list) => {
@@ -131,23 +132,22 @@ export default class CityList extends React.Component {
     // 获取每一行的字母索引
     const { cityIndex, cityList } = this.state
     const letter = cityIndex[index]
+
     // 获取指定字母索引下的城市列表数据
     return (
       <div key={key} style={style} className="city">
         <div className="title">{formatCityIndex(letter)}</div>
-        {
-          cityList[letter].map(item => (
-            <div
-              className="name"
-              key={item.value}
-              onClick={() => {
-                this.changeCity(item)
-              }}
-            >
-              {item.label}
-            </div>
-          ))
-        }
+        {cityList[letter].map(item => (
+          <div
+            className="name"
+            key={item.value}
+            onClick={() => {
+              this.changeCity(item)
+            }}
+          >
+            {item.label}
+          </div>
+        ))}
       </div>
     )
   }

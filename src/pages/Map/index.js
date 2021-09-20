@@ -4,17 +4,18 @@ import React from 'react'
 // import axios from 'axios'
 import { API } from '../../utils/api'
 
-// 导入 BASE_URL
-import { BASE_URL } from '../../utils/url'
-
 // 导入 路由
 import { Link } from 'react-router-dom'
 
 // 导入 组件
 import { Toast } from 'antd-mobile'
 
+// 导入 BASE_URL
+import { BASE_URL } from '../../utils/url'
+
 // 导入 封装完成的 NavHeader 组件
 import NavHeader from '../../components/NavHeader'
+
 // 导入 封装完成的 NavHeader 组件
 import HouseItem from '../../components/HouseItem'
 
@@ -62,22 +63,25 @@ export default class Map extends React.Component {
     //创建地址解析器实例
     const myGeo = new BMapGL.Geocoder()
     // 将地址解析结果显示在地图上，并调整地图视野
-    myGeo.getPoint(label, async (point) => {
-      if(point) {
-        // 初始化地图
-        map.centerAndZoom(point, 11)
-        
-        // 添加常用控件
-        const scaleCtrl = new BMapGL.ScaleControl() // 添加比例尺控件
-        map.addControl(scaleCtrl)
-        const zoomCtrl = new BMapGL.ZoomControl() // 添加缩放控件
-        map.addControl(zoomCtrl)
+    myGeo.getPoint(
+      label,
+      async (point) => {
+        if(point) {
+          // 初始化地图
+          map.centerAndZoom(point, 11)
+          
+          // 添加常用控件
+          const scaleCtrl = new BMapGL.ScaleControl() // 添加比例尺控件
+          map.addControl(scaleCtrl)
+          const zoomCtrl = new BMapGL.ZoomControl() // 添加缩放控件
+          map.addControl(zoomCtrl)
 
-        // 调用 renderOverlays 方法
-        this.renderOverlays(value)
-
-      }
-    }, label)
+          // 调用 renderOverlays 方法
+          this.renderOverlays(value)
+        }
+      },
+      label
+    )
 
     // 给地图绑定移动事件
     map.addEventListener('movestart', () => {
@@ -229,7 +233,8 @@ export default class Map extends React.Component {
     label.setStyle(labelStyle)
 
     // 添加单击事件
-    label.addEventListener('click', (e) => {
+    label.addEventListener('click', e => {
+      // 获取并渲染房源数据
       this.getHouseList(id)
       // 获取当前被点击项坐标
       this.map.panBy(
@@ -271,6 +276,9 @@ export default class Map extends React.Component {
   renderHousesList() {
     return this.state.housesList.map(item => (
       <HouseItem
+        onClick={() => {
+          this.props.history.push(`/detail/${item.houseCode}`)
+        }}
         key={item.houseCode}
         src={BASE_URL + item.houseImg}
         title={item.title}

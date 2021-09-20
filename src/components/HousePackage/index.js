@@ -129,7 +129,9 @@ class HousePackage extends Component {
   }
 
   render() {
-    return <ul className={styles.root}>{this.renderItems()}</ul>
+    return (
+      <ul className={styles.root}>{this.renderItems()}</ul>
+    )
   }
 }
 

@@ -4,7 +4,12 @@ import React from 'react'
 import { Flex, Toast } from 'antd-mobile'
 
 // 导入 List组件
-import { List, AutoSizer, WindowScroller, InfiniteLoader } from 'react-virtualized'
+import {
+  List,
+  AutoSizer,
+  WindowScroller,
+  InfiniteLoader
+} from 'react-virtualized'
 
 // 导入 axios
 import { API } from '../../utils/api'
@@ -22,8 +27,6 @@ import NoHouse from '../../components/NoHouse'
 
 // 导入 组件自身的样式文件
 import styles from './index.module.css'
-
-
 
 // 获取当前定位城市信息
 // const { label, value } = JSON.parse(localStorage.getItem('hkzf_city'))
@@ -72,8 +75,8 @@ export default class HouseList extends React.Component {
         end: 20
       }
     })
-    const { list, count } = res.data.body
 
+    const { list, count } = res.data.body
     // 关闭 loading
     Toast.hide()
 
@@ -94,9 +97,8 @@ export default class HouseList extends React.Component {
 
   // 接收 Filter 组件中的筛选条件数据
   onFilter = filters => {
-    // 回到页面顶部
+    // 返回页面顶部
     window.scrollTo(0, 0)
-
     this.filters = filters
 
     // 调用获取房屋数据的方法
@@ -187,7 +189,7 @@ export default class HouseList extends React.Component {
           <WindowScroller>
             {({ height, isScrolling, scrollTop }) => (
               <AutoSizer>
-                {({width}) => (
+                {({ width }) => (
                   <List
                     onRowsRendered={onRowsRendered}
                     ref={registerChild}

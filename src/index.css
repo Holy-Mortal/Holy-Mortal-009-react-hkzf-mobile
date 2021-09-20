@@ -30,10 +30,16 @@ dd {
 }
 
 ul {
+  padding: 0;
   list-style: none;
 }
 
 /* 解决 找房页面 展示遮罩层后，页面还会滚动的问题 */
 .body-fixed {
   overflow: hidden;
+}
+
+.route-loading {
+  padding-top: 100px;
+  text-align: center;
 }

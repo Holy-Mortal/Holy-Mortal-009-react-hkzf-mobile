@@ -74,11 +74,11 @@ export default class HouseDetail extends Component {
       // 租金
       price: 0,
       // 房型
-      roomType: '两室一厅',
+      roomType: '',
       // 房屋面积
       size: 89,
       // 装修类型
-      renovation: '精装',
+      renovation: '',
       // 朝向
       oriented: [],
       // 楼层
@@ -109,6 +109,7 @@ export default class HouseDetail extends Component {
     this.checkFavorite()
   }
 
+  // 检查房源是否收藏
   async checkFavorite() {
     const isLogin = isAuth()
     if(!isLogin) {
@@ -128,6 +129,28 @@ export default class HouseDetail extends Component {
       })
     }
   }
+
+  /* 
+    收藏房源：
+
+    1 给收藏按钮绑定单击事件，创建方法 handleFavorite 作为事件处理程序。
+    2 调用 isAuth 方法，判断是否登录。
+    3 如果未登录，则使用 Modal.alert 提示用户是否去登录。
+    4 如果点击取消，则不做任何操作。
+    5 如果点击去登录，就跳转到登录页面，同时传递 state（登录后，再回到房源收藏页面）。
+    
+    6 根据 isFavorite 判断，当前房源是否收藏。
+    7 如果未收藏，就调用添加收藏接口，添加收藏。
+    8 如果已收藏，就调用删除收藏接口，去除收藏。
+
+    alert('提示', '登录后才能收藏房源，是否去登录?', [
+      { text: '取消' },
+      {
+        text: '去登录',
+        onPress: () => {}
+      }
+    ])
+  */
 
   handleFavorite = async () => {
     const isLogin = isAuth()
@@ -213,20 +236,8 @@ export default class HouseDetail extends Component {
     } = this.state
 
     return houseImg.map(item => (
-      <a
-        key={item}
-        href="http://itcast.cn"
-        style={{
-          display: 'inline-block',
-          width: '100%',
-          height: 252
-        }}
-      >
-        <img
-          src={BASE_URL + item}
-          alt=""
-          style={{ width: '100%', verticalAlign: 'top' }}
-        />
+      <a key={item} href="http://itcast.cn">
+        <img src={BASE_URL + item} alt="" />
       </a>
     ))
   }
@@ -335,7 +346,7 @@ export default class HouseDetail extends Component {
               <div>房型</div>
             </Flex.Item>
             <Flex.Item className={styles.infoPriceItem}>
-              <div>{size}</div>
+              <div>{size}平米</div>
               <div>面积</div>
             </Flex.Item>
           </Flex>
@@ -354,9 +365,7 @@ export default class HouseDetail extends Component {
             <Flex.Item>
               <div>
                 <span className={styles.title}>朝向：</span>
-                {
-                  oriented.join('、')
-                }
+                {oriented.join('、')}
               </div>
               <div>
                 <span className={styles.title}>类型：</span>普通住宅
@@ -381,13 +390,11 @@ export default class HouseDetail extends Component {
           <div className={styles.houseTitle}>房屋配套</div>
           {/* <HousePackage list={supporting} /> */}
           {/* <div className="title-empty">暂无数据</div> */}
-          {
-            supporting.length === 0 ? (
-              <div className={styles.titleEmpty}>暂无数据</div>
-            ) : (
-              <HousePackage list={supporting} />
-            )
-          }
+          {supporting.length === 0 ? (
+            <div className={styles.titleEmpty}>暂无数据</div>
+          ) : (
+            <HousePackage list={supporting} />
+          )}
         </div>
 
         {/* 房屋概况 */}
@@ -426,7 +433,7 @@ export default class HouseDetail extends Component {
 
         {/* 底部收藏按钮 */}
         <Flex className={styles.fixedBottom}>
-          <Flex.Item>
+          <Flex.Item onClick={this.handleFavorite}>
             <img
               src={
                 BASE_URL + (isFavorite ? '/img/star.png' : '/img/unstar.png')
@@ -434,7 +441,9 @@ export default class HouseDetail extends Component {
               className={styles.favoriteImg}
               alt="收藏"
             />
-            <span className={styles.favorite}>{ isFavorite ? '已收藏' : '收藏' }</span>
+            <span className={styles.favorite}>
+              { isFavorite ? '已收藏' : '收藏' }
+            </span>
           </Flex.Item>
           <Flex.Item>在线咨询</Flex.Item>
           <Flex.Item>

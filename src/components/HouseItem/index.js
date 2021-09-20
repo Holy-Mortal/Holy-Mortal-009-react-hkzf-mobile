@@ -15,16 +15,17 @@ function HouseItem({ src, title, desc, tags, price, onClick, style }) {
         <div className={styles.desc}>{desc}</div>
         <div>
           {/* ['近地铁', '随时看房'] */}
-          {
-            tags.map((tag, index) => {
-              const tagClass = 'tag' + (index + 1)
-              return (
-                <span className={[styles.tag, styles[tagClass]].join(' ')} key={tag}>
-                  {tag}
-                </span>
-              )
-            })
-          }
+          {tags.map((tag, index) => {
+            const tagClass = 'tag' + (index + 1)
+            return (
+              <span
+                className={[styles.tag, styles[tagClass]].join(' ')}
+                key={tag}
+              >
+                {tag}
+              </span>
+            )
+          })}
         </div>
         <div className={styles.price}>
           <span className={styles.priceNum}>{price}</span> 元/月

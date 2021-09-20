@@ -104,6 +104,9 @@ export default class RentAdd extends Component {
     ])
   }
 
+  /* 
+    获取表单数据：
+  */
   getValue = (name, value) => {
     this.setState(() => {
       return {
@@ -112,6 +115,9 @@ export default class RentAdd extends Component {
     })
   }
 
+  /* 
+    获取房屋配置数据：
+  */
   handleSupporting = (selected) => {
     this.setState(() => {
       return {
@@ -120,6 +126,11 @@ export default class RentAdd extends Component {
     })
   }
 
+  /* 
+    获取房屋图片：
+    1 给 ImagePicker 组件添加 onChange 配置项。
+    2 通过 onChange 的参数，获取到上传的图片，并存储到状态 tempSlides 中。
+  */
   handleHouseImg = (files, type, index) => {
     this.setState(() => {
       return {
@@ -128,6 +139,15 @@ export default class RentAdd extends Component {
     })
   }
 
+  /* 
+    发布房源：
+
+    1 在 addHouse 方法中，从 state 里面获取到所有房屋数据。
+    2 使用 API 调用发布房源接口，传递所有房屋数据。
+    3 根据接口返回值中的状态码，判断是否发布成功。
+    4 如果状态码是 200，表示发布成功，就提示：发布成功，并跳转到已发布房源页面。
+    5 否则，就提示：服务器偷懒了，请稍后再试~。
+  */
   addHouse = async () => {
     const {
       tempSlides,

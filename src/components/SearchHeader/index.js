@@ -27,6 +27,7 @@ function SearchHeader({ history, cityName, className }) {
           <span className="name">{cityName}</span>
           <i className="iconfont icon-arrow" />
         </div>
+
         {/* 搜索表单 */}
         <div
           className="form"
@@ -38,6 +39,7 @@ function SearchHeader({ history, cityName, className }) {
           <span className="text">请输入小区或地址</span>
         </div>
       </Flex>
+      
       {/* 右侧地图图标 */}
       <i
         className="iconfont icon-map"

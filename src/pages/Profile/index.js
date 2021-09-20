@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Grid, Button, Modal } from 'antd-mobile'
 
-import { BASE_URL, isAuth, getToken, removeToken, API } from '../../utils'
+import { BASE_URL, isAuth, removeToken, API } from '../../utils'
+// import { BASE_URL, isAuth, getToken, removeToken, API } from '../../utils'
 
 import styles from './index.module.css'
 
@@ -47,11 +48,12 @@ export default class Profile extends Component {
       { text: '取消' },
       { text: '退出', onPress: async () => {
         // 调用退出接口
-        await API.post('/user/logout', null, {
-          headers: {
-            authorization: getToken()
-          }
-        })
+        // await API.post('/user/logout', null, {
+        //   headers: {
+        //     authorization: getToken()
+        //   }
+        // })
+        await API.post('/user/logout')
 
         // 移除本地 token
         removeToken()
@@ -66,7 +68,7 @@ export default class Profile extends Component {
             }
           }
         })
-      } }
+      }}
     ])
   }
 
@@ -77,11 +79,12 @@ export default class Profile extends Component {
     }
 
     // 发起请求，获取个人资料
-    const res = await API.get('/user', {
-      headers: {
-        authorization: getToken()
-      }
-    })
+    // const res = await API.get('/user', {
+    //   headers: {
+    //     authorization: getToken()
+    //   }
+    // })
+    const res = await API.get('/user')
 
     if(res.data.status === 200) {
       const { avatar, nickname } = res.data.body

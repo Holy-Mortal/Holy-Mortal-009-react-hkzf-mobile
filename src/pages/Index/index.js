@@ -4,6 +4,7 @@ import React from 'react'
 import { Carousel, Flex, Grid, WingBlank } from 'antd-mobile'
 // 导入 axios
 import axios from 'axios'
+// 导入
 import { BASE_URL } from '../../utils/url'
 // 导入导航菜单图片
 import Nav1 from '../../assets/images/nav-1.png'
@@ -190,19 +191,17 @@ export default class Index extends React.Component {
         {/* 轮播图及搜索框 */}
         <div className="swiper">
           {/* 轮播图 */}
-          {
-            this.state.isSwiperLoaded ? (
-              <Carousel
-                autoplay={true} // 轮播图是否自动播放
-                infinite={true} // 是否循环播放
-                autoplayInterval={2000} // 轮播图自动切换的时间间隔
-              >
-                {this.renderSwipers()}
-              </Carousel>
-            ) : (
-              ''
-            )
-          }
+          {this.state.isSwiperLoaded ? (
+            <Carousel
+              autoplay={true} // 轮播图是否自动播放
+              infinite={true} // 是否循环播放
+              autoplayInterval={2000} // 轮播图自动切换的时间间隔
+            >
+              {this.renderSwipers()}
+            </Carousel>
+          ) : (
+            ''
+          )}
 
           {/* 搜索框 */}
           <SearchHeader cityName={this.state.curCityName} />
@@ -218,6 +217,7 @@ export default class Index extends React.Component {
           <h3 className="group-title">
             租房小组 <span className="more">更多</span>
           </h3>
+          
           {/* 宫格组件 */}
           <Grid
             data={this.state.groups}

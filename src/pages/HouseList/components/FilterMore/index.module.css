@@ -70,6 +70,6 @@
   z-index: 3;
 }
 
-:global(.am-tab-bar-bar) {
+/* :global(.am-tab-bar-bar) {
   z-index: 2;
-}
+} */
